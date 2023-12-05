@@ -1,3 +1,4 @@
+import os
 import urllib.request as request
 import numpy as np
 import cv2
@@ -32,8 +33,10 @@ while True:
             cv2.imshow('Smart Scanner', frame)  #mostra l oggetto acquisito
             key = cv2.waitKey(1)
             if key == ord('s'):
-                img_pil = Image.fromarray(frame)  # Utilizza object_only invece di frame
+                img_pil = Image.fromarray(object_only)  # for bug fixes use "frame" instead of object_only
                 time_str = time.strftime('%Y-%m-%d-%H-%M-%S')
-                img_pil.save(f'E:\\Scuola\\univaq\\python\\smart_scanner\\{time_str}.pdf')
+                current_directory = os.path.dirname(os.path.abspath(__file__))
+                file_path = os.path.join(current_directory, f'{time_str}.pdf')
+                img_pil.save(file_path)
                 print(f'Saved {time_str}.pdf')
                 break
